@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Tonnage/view/dashboard/index.dart';
 import 'package:Tonnage/view/calendar/index.dart';
 import 'package:Tonnage/view/settings/index.dart';
+import 'package:Tonnage/view/statistic/index.dart';
 import 'dart:ui';
 import 'dart:io';
 import 'package:intl/date_symbol_data_local.dart';
@@ -50,10 +51,7 @@ class _TonnageAppState extends State<TonnageApp> {
 
   static List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    Statistic(),
     CalendarPage(title: 'Table Calendar Demo'),
     Settings(),
   ];
@@ -68,7 +66,7 @@ class _TonnageAppState extends State<TonnageApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: _selectedIndex == 3 ? Color(0xffF5F6F8) : Colors.white ,
+        color: _selectedIndex == 3 || _selectedIndex == 1 ? Color(0xffF5F6F8) : Colors.white,
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
