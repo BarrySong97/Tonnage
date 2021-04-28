@@ -46,8 +46,6 @@ class TonnageApp extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _TonnageAppState extends State<TonnageApp> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
@@ -66,7 +64,9 @@ class _TonnageAppState extends State<TonnageApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: _selectedIndex == 3 || _selectedIndex == 1 ? Color(0xffF5F6F8) : Colors.white,
+        color: _selectedIndex == 3 || _selectedIndex == 1
+            ? Color(0xffF5F6F8)
+            : Colors.white,
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
