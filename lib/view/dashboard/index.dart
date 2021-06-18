@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:Tonnage/component/dashboardchart/chartcard.dart';
 
 class Dashboard extends StatelessWidget {
@@ -28,15 +29,9 @@ class Greeting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'BarrySong4Real',
-          style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
+          'BarrySong4Real，下午好',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Container(
-            margin: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-            child: Text(
-              '下午好',
-              style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
-            )),
       ],
     );
   }
@@ -69,7 +64,6 @@ class Mention extends StatelessWidget {
                         borderRadius: BorderRadius.all(
                           Radius.circular(5.0),
                         ),
-
                         color: Color(0xff1a73e8),
                       ),
                       alignment: Alignment.center,
@@ -152,24 +146,24 @@ class ExerciseTitle extends StatelessWidget {
     return Container(
         margin: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
         child: Row(children: [
-          Flexible(
-              flex: 5,
-              child: Container(
-                  width: 500,
-                  child: Text(
-                    '训练计划',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[600]),
-                  ))),
-          Flexible(
-              child: Container(
-                  child: Text(
-            '查看全部',
+          Text(
+            '当前训练计划',
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blue),
-          )))
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[600]),
+          ),
+          Spacer(flex: 1),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onPressed: () {},
+            child: const Text('查看全部'),
+          )
         ]));
   }
 }
@@ -264,17 +258,176 @@ class ChartCardBox extends StatelessWidget {
       margin: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
       padding: EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
-      height: 305,
+      height: 325,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          gradient: LinearGradient(
-            colors: [ Color(0xff1a73e8), Colors.indigo,],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomCenter,
-          )),
-      child: ChartCard(),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        color: Colors.indigo,
+      ),
+      child: Column(children: [
+        Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+            child: Text(
+              "背 & 二头",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
+        Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsetsDirectional.fromSTEB(2, 6, 0, 0),
+            child: Text(
+              "上次训练：2020-1-08",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+              ),
+            )),
+        Container(
+            alignment: Alignment.topLeft,
+            height: 180,
+            child: Echarts(
+              option: '''
+     {
+     tooltip: {},
+     backgroundColor:'#3F51B5',
+      grid: {
+        top:30,
+        left:30,
+        bottom:10,
+        right:10
+    },
+    xAxis: [{
+        type: 'category',
+        axisTick:{
+            show:false
+        },
+        axisLine:{
+            show:false
+        },
+        axisLabel:{
+            color:'#4D4D4D',
+            fontSize:14,
+            margin:21,
+            fontWeight:'bold'
+        },
+        data: [],
+       
+    }],
+    yAxis: [{
+        
+        nameTextStyle:{
+            color:'#fff',
+            fontSize:12,
+            padding:[0, 0, 0, -5]
+        },
+        	
+        max: function(value) {
+            if(value.max<5){
+                return 5
+            }else{
+                return value.max
+            }
+        },
+        type: 'value',
+        axisLine:{
+            show:false
+        },
+        axisLabel:{
+            color:'#fff',
+            fontSize:12,
+            margin:5
+        },
+        splitLine:{
+            show:false
+        },
+        axisTick:{
+            show:false
+        }
+    }],
+    series: [
+        {
+            name: '猕猴桃',
+            type: 'bar',
+            label:{
+                show:false,
+                position:'top',
+                fontSize:12,
+                color:'#3DC3F0',
+                fontWeight:'bold'
+            },
+            barMaxWidth:60,
+            itemStyle:{
+                color: '#04befe'
+            },
+            data: [14, 20, 18, 9]
+        }, 
+        
+    ]
+}
+                    ''',
+            )),
+        Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+            child: Table(children: [
+              TableRow(children: [
+                Container(
+                    margin: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 6),
+                          child: Text(
+                            '7',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ),
+                        Text(
+                          '训练动作',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        )
+                      ],
+                    )),
+                Container(
+                  margin: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                  child: RaisedButton(
+                    onPressed: () {},
+                    textColor: Colors.white,
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                      child: const Text('        开始        ',
+                          style: TextStyle(fontSize: 20)),
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xff1a73e8),
+                            Colors.indigo,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    ),
+                  ),
+                ),
+              ])
+            ])),
+      ]),
     );
   }
 }
